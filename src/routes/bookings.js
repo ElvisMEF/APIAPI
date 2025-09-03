@@ -17,9 +17,8 @@ router.get("/", async (req, res) => {
 
 // GET booking by ID
 router.get("/:id", async (req, res) => {
-  const { id } = req.params;
   try {
-    const booking = await prisma.booking.findUnique({ where: { id } });
+    const booking = await prisma.booking.findUnique({ where: { id: req.params.id } });
     if (!booking) return res.status(404).json({ error: "Booking not found" });
     res.json(booking);
   } catch (err) {
@@ -28,28 +27,16 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// GET bookings by userId query
-router.get("/user/:userId", async (req, res) => {
-  const { userId } = req.params;
-  try {
-    const bookings = await prisma.booking.findMany({ where: { userId } });
-    res.json(bookings);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Server error" });
-  }
-});
-
 // POST new booking
 router.post("/", authenticateToken, async (req, res) => {
-  const { userId, propertyId, startDate, endDate, totalPrice } = req.body;
-  if (!userId || !propertyId || !startDate || !endDate || !totalPrice) {
+  const { userId, propertyId, checkinDate, checkoutDate, numberOfGuests, totalPrice, bookingStatus } = req.body;
+  if (!userId || !propertyId || !checkinDate || !checkoutDate || !numberOfGuests || !totalPrice || !bookingStatus) {
     return res.status(400).json({ error: "Missing required fields" });
   }
 
   try {
     const newBooking = await prisma.booking.create({
-      data: { userId, propertyId, startDate: new Date(startDate), endDate: new Date(endDate), totalPrice },
+      data: { userId, propertyId, checkinDate: new Date(checkinDate), checkoutDate: new Date(checkoutDate), numberOfGuests, totalPrice, bookingStatus },
     });
     res.status(201).json(newBooking);
   } catch (err) {
@@ -60,13 +47,12 @@ router.post("/", authenticateToken, async (req, res) => {
 
 // PUT booking by ID
 router.put("/:id", authenticateToken, async (req, res) => {
-  const { id } = req.params;
-  const { userId, propertyId, startDate, endDate, totalPrice } = req.body;
+  const { userId, propertyId, checkinDate, checkoutDate, numberOfGuests, totalPrice, bookingStatus } = req.body;
 
   try {
     const updatedBooking = await prisma.booking.update({
-      where: { id },
-      data: { userId, propertyId, startDate: new Date(startDate), endDate: new Date(endDate), totalPrice },
+      where: { id: req.params.id },
+      data: { userId, propertyId, checkinDate: new Date(checkinDate), checkoutDate: new Date(checkoutDate), numberOfGuests, totalPrice, bookingStatus },
     });
     res.json(updatedBooking);
   } catch (err) {
@@ -78,9 +64,8 @@ router.put("/:id", authenticateToken, async (req, res) => {
 
 // DELETE booking by ID
 router.delete("/:id", authenticateToken, async (req, res) => {
-  const { id } = req.params;
   try {
-    await prisma.booking.delete({ where: { id } });
+    await prisma.booking.delete({ where: { id: req.params.id } });
     res.json({ message: "Booking deleted" });
   } catch (err) {
     if (err.code === "P2025") return res.status(404).json({ error: "Booking not found" });

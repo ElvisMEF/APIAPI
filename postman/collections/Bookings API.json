@@ -1156,7 +1156,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"username\": \"newhosty \",\n  \"password\": \"password123\",\n  \"name\": \"John Doe\",\n  \"email\": \"johndoe@email.com\",\n  \"phoneNumber\": \"+11234567890\",\n  \"pictureUrl\": \"https://example.com/images/johndoe.jpg\",\n  \"aboutMe\": \"I'm a passionate traveler who loves to share my home with fellow explorers. Welcome!\"\n}",
+              "raw": "{\n  \"username\": \"newhosty \",\n  \"password\": \"password1213\",\n  \"name\": \"Johhn Doe\",\n  \"email\": \"johhndoe@email.com\",\n  \"phoneNumber\": \"+11244567890\",\n  \"pictureUrl\": \"https://example.com/images/johndoe.jpg\",\n  \"aboutMe\": \"I'm a passionate traveler who loves to share my home with fellow explorers. Welcome!\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1184,7 +1184,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"username\": \"johnDoe\",\n  \"password\": \"johnDoe123\",\n  \"name\": \"John Doe\",\n  \"email\": \"johndoe@email.com\",\n  \"phoneNumber\": \"+11234567890\",\n  \"pictureUrl\": \"https://example.com/images/johndoe.jpg\",\n  \"aboutMe\": \"I'm a passionate traveler who loves to share my home with fellow explorers. Welcome!\"\n}",
+                  "raw": "{\n  \"username\": \"johhnDoe\",\n  \"password\": \"johhnDoe123\",\n  \"name\": \"Johhn Doe\",\n  \"email\": \"johhndoe@email.com\",\n  \"phoneNumber\": \"+11244567890\",\n  \"pictureUrl\": \"https://example.com/images/johndoe.jpg\",\n  \"aboutMe\": \"I'm a passionate traveler who loves to share my home with fellow explorers. Welcome!\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"

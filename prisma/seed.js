@@ -13,9 +13,18 @@ async function main() {
   const reviewsData = JSON.parse(fs.readFileSync("src/data/reviews.json", "utf8"));
   const amenitiesData = JSON.parse(fs.readFileSync("src/data/amenities.json", "utf8"));
 
+  console.log("Clearing tables...");
+
+  // Delete in reverse dependency order
+  await prisma.booking.deleteMany();
+  await prisma.review.deleteMany();
+  await prisma.property.deleteMany();
+  await prisma.host.deleteMany();
+  await prisma.user.deleteMany();
+  await prisma.amenity.deleteMany();
+
   console.log("Seeding users...");
   for (const user of usersData.users) {
-    // Hash passwords before storing
     const hashedPassword = await bcrypt.hash(user.password, 10);
     await prisma.user.create({ data: { ...user, password: hashedPassword } });
   }
